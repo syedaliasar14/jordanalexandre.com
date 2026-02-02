@@ -7,7 +7,7 @@ export default function Home() {
       <Header />
       <div className="flex-grow flex flex-col justify-center items-center w-full">
         <Image src="/headshot.png" className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 mb-10"
-          alt="Jordan Alexandre Logo" width={384} height={384} />
+          alt="Jordan Alexandre Logo" width={500} height={500} />
       </div>
     </main>
   );

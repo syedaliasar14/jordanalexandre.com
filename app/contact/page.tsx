@@ -10,15 +10,15 @@ export default function ContactPage() {
           <h1 className="text-5xl text-primary font-thin mb-12">Contact</h1>
 
           <input type="text" id="name" name="name" required placeholder="Name"
-            className="w-full px-3 py-2 border-b-2 border-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full px-3 py-2 border-b-2 border-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
           />
 
           <input type="email" id="email" name="email" required placeholder="Email"
-            className="w-full px-3 py-2 border-b-2 border-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full px-3 py-2 border-b-2 border-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
           />
 
           <textarea id="message" name="message" rows={4} required placeholder="Message"
-            className="w-full px-3 py-2 border-b-2 border-foreground focus:outline-none focus:ring-2 focus:ring-primary resize-vertical"
+            className="w-full px-3 py-2 border-b-2 border-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 resize-vertical"
           />
 
           <button type="submit" className="bg-foreground hover:bg-primary text-white py-2 px-12 font-lores text-xl ml-auto block">
