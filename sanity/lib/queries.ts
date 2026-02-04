@@ -15,39 +15,30 @@ export const ABOUT_PAGE_QUERY = groq`*[_type == "page" && pageType == "about"][0
     section1{
       title,
       text,
-      image{asset->, alt}
+      image{asset->}
     }
   }
 }`
 
-export const PORTFOLIO_THUMBNAILS_QUERY = groq`*[
+export const PORTFOLIO_QUERY = groq`*[
   _type == "portfolio"
   && defined(slug.current)
-] | order(order asc, publishedAt desc){
+] | order(order asc){ 
   _id,
   title,
   slug,
-  publishedAt,
-  thumbnail,
+  thumbnail{ asset-> },
   order
 }`
 
-export const PORTFOLIO_ITEMS_QUERY = groq`*[_type == "portfolio" && slug.current == $slug][0]{
+export const PORTFOLIO_BY_SLUG_QUERY = groq`*[_type == "portfolio" && slug.current == $slug][0]{
   _id, 
-  title, 
+  title,
   slug, 
-  photosAltText,
-  thumbnail{
-    asset->
-  },
-  venue,
-  season,
-  images[]{
-    asset->,
-    alt,
-    caption
-  }
-}`;
+  description,
+  thumbnail{ asset-> },
+  gallery[]{ asset-> }
+}`
 
 export const BLOGS_QUERY = groq`*[
   _type == "blog"
@@ -56,7 +47,7 @@ export const BLOGS_QUERY = groq`*[
   _id,
   title,
   slug,
-  image{asset->, alt},
+  image{asset->},
   publishedAt
 }`
 

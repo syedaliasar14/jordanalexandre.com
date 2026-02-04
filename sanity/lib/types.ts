@@ -12,7 +12,7 @@ export interface Page {
 }
 
 export interface AboutContent {
-  heroSection?: {
+  section1?: {
     title?: string
     text?: string
     image?: SanityImageSource
@@ -25,9 +25,9 @@ export interface PortfolioItem {
   slug: {
     current: string
   }
-  photosAltText?: string
   thumbnail?: SanityImageSource
-  publishedAt: string
+  description?: string
+  gallery?: SanityImageSource[]
   order?: number
 }
 
@@ -37,7 +37,6 @@ export interface Blog {
   slug: {
     current: string
   }
-  photosAltText?: string
   image?: SanityImageSource
   content: PortableTextBlock[]
   publishedAt: string

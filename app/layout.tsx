@@ -4,6 +4,7 @@ import { helveticaNeue, loRes9Wide, loRes21Serif } from "./fonts";
 import { draftMode } from "next/headers";
 import { DisableDraftMode } from "./components/disable-draft-mode";
 import { VisualEditing } from "next-sanity/visual-editing";
+import { SanityLive } from "@/sanity/lib/live";
 
 export const metadata: Metadata = {
   title: "JordanAlexandre.com",
@@ -15,6 +16,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
     <html lang="en">
       <body className={`antialiased ${helveticaNeue.variable} ${loRes9Wide.variable} ${loRes21Serif.variable}`}>
         {children}
+        <SanityLive />
         {(await draftMode()).isEnabled && (
           <>
             <DisableDraftMode />
