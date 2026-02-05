@@ -20,51 +20,35 @@ export const ABOUT_PAGE_QUERY = groq`*[_type == "page" && pageType == "about"][0
   }
 }`
 
-export const PORTFOLIO_QUERY = groq`*[
-  _type == "portfolio"
-  && defined(slug.current)
-] | order(order asc){ 
+// Get all portfolio categories for the main portfolio page
+export const PORTFOLIO_CATEGORIES_QUERY = groq`*[_type == "portfolio" && defined(slug.current)] | order(category asc) { 
   _id,
-  title,
+  category,
   slug,
-  thumbnail{ asset-> },
-  order
 }`
 
-export const PORTFOLIO_BY_SLUG_QUERY = groq`*[_type == "portfolio" && slug.current == $slug][0]{
-  _id, 
-  title,
-  slug, 
-  description,
-  thumbnail{ asset-> },
-  gallery[]{ asset-> }
-}`
-
-export const BLOGS_QUERY = groq`*[
-  _type == "blog"
-  && defined(slug.current)
-] | order(publishedAt desc){
+// Get a specific portfolio category with all its items
+export const PORTFOLIO_CATEGORY_QUERY = groq`*[_type == "portfolio" && slug.current == $category][0]{
   _id,
-  title,
+  category,
   slug,
-  image{asset->},
-  publishedAt
+  portfolioItems[]{
+    title,
+    slug,
+    thumbnail{ asset-> }
+  }
 }`
 
-export const BLOG_BY_SLUG_QUERY = groq`*[_type == "blog" && slug.current == $slug][0]{
+// Get a specific portfolio item by category and item slug
+export const PORTFOLIO_ITEM_QUERY = groq`*[_type == "portfolio" && slug.current == $category][0]{
   _id,
-  title,
+  category,
   slug,
-  photosAltText,
-  image{asset->, alt},
-  content[]{
-    ...,
-    _type == "image" => {
-      ...,
-      asset->
-    }
-  },
-  publishedAt
+  "portfolioItem": portfolioItems[slug.current == $itemSlug][0]{
+    title,
+    slug,
+    thumbnail{ asset-> },
+    description,
+    gallery[]{ asset-> }
+  }
 }`
-
-

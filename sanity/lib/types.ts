@@ -1,5 +1,4 @@
 import { SanityImageSource } from '@sanity/image-url/lib/types/types'
-import { PortableTextBlock } from 'next-sanity'
 
 export interface Page {
   _id: string
@@ -20,7 +19,6 @@ export interface AboutContent {
 }
 
 export interface PortfolioItem {
-  _id: string
   title: string
   slug: {
     current: string
@@ -28,26 +26,22 @@ export interface PortfolioItem {
   thumbnail?: SanityImageSource
   description?: string
   gallery?: SanityImageSource[]
-  order?: number
 }
 
-export interface Blog {
+export interface Portfolio {
   _id: string
-  title: string
+  category: string
   slug: {
     current: string
   }
-  image?: SanityImageSource
-  content: PortableTextBlock[]
-  publishedAt: string
+  portfolioItems?: PortfolioItem[]
 }
 
-export interface BlogListItem {
+export interface PortfolioWithItem {
   _id: string
-  title: string
+  category: string
   slug: {
     current: string
   }
-  image?: SanityImageSource
-  publishedAt: string
+  portfolioItem?: PortfolioItem
 }

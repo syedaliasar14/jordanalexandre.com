@@ -6,8 +6,8 @@ export const portfolioType = defineType({
   type: "document",
   fields: [
     defineField({
-      name: "title",
-      title: "Title",
+      name: "category",
+      title: "Category",
       type: "string",
       validation: (rule) => rule.required(),
     }),
@@ -15,36 +15,20 @@ export const portfolioType = defineType({
       name: "slug",
       title: "Slug",
       type: "slug",
-      options: { source: "title" },
+      options: { source: "category" },
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: "thumbnail",
-      title: "Thumbnail Image",
-      type: "image",
-    }),
-    defineField({
-      name: "description",
-      title: "Description",
-      type: "text",
-    }),
-    defineField({
-      name: "gallery",
-      title: "Gallery Images",
+      name: "portfolioItems",
+      title: "Portfolio Items",
       type: "array",
-      of: [{ type: "image" }],
-    }),
-    defineField({
-      name: 'order',
-      title: 'Order',
-      type: 'number',
-      description: 'Optional order for sorting',
+      of: [{ type: "portfolioItem" }],
     }),
   ],
   preview: {
     select: {
-      title: "title",
-      media: "thumbnail",
+      title: "category",
+      media: "portfolioItems.0.thumbnail",
     },
   },
 })
