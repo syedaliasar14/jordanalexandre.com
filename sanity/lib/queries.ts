@@ -12,7 +12,7 @@ const BASE_PAGE_FIELDS = groq`
 export const ABOUT_PAGE_QUERY = groq`*[_type == "page" && pageType == "about"][0]{
   ${BASE_PAGE_FIELDS},
   aboutContent{
-    section1{
+    sections[]{
       title,
       text,
       image{asset->}

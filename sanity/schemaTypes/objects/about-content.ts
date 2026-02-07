@@ -6,17 +6,41 @@ export const aboutContent = defineType({
   type: 'object',
   fields: [
     defineField({
-      name: 'section1',
-      title: 'Section 1',
-      type: 'object',
-      fields: [
-        { name: 'title', title: 'Title', type: 'string' },
-        { name: 'text', title: 'Text', type: 'text' },
+      name: 'sections',
+      title: 'About Sections',
+      type: 'array',
+      of: [
         {
-          name: 'image',
-          title: 'Image',
-          type: 'image',
-          options: { hotspot: true },
+          type: 'object',
+          name: 'aboutSection',
+          title: 'About Section',
+          fields: [
+            {
+              name: 'title',
+              title: 'Title',
+              type: 'string',
+              validation: (rule) => rule.required(),
+            },
+            {
+              name: 'text',
+              title: 'Text',
+              type: 'text',
+              validation: (rule) => rule.required(),
+            },
+            {
+              name: 'image',
+              title: 'Image',
+              type: 'image',
+              options: { hotspot: true },
+            },
+          ],
+          preview: {
+            select: {
+              title: 'title',
+              subtitle: 'text',
+              media: 'image',
+            },
+          },
         },
       ],
     }),

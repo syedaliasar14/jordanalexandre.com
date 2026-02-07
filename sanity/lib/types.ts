@@ -11,11 +11,11 @@ export interface Page {
 }
 
 export interface AboutContent {
-  section1?: {
-    title?: string
-    text?: string
+  sections?: {
+    title: string
+    text: string
     image?: SanityImageSource
-  }
+  }[]
 }
 
 export interface PortfolioItem {

@@ -11,7 +11,7 @@ export const pageType = defineType({
       type: 'string',
       options: {
         list: [
-          {title: 'About', value: 'about'},
+          {title: 'About Page', value: 'about'},
         ],
         layout: 'dropdown',
       },
