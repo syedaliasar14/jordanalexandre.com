@@ -21,7 +21,7 @@ export const ABOUT_PAGE_QUERY = groq`*[_type == "page" && pageType == "about"][0
 }`
 
 // Get all portfolio categories for the main portfolio page
-export const PORTFOLIO_CATEGORIES_QUERY = groq`*[_type == "portfolio" && defined(slug.current)] | order(category asc) { 
+export const PORTFOLIO_CATEGORIES_QUERY = groq`*[_type == "portfolio" && defined(slug.current)] { 
   _id,
   category,
   slug,

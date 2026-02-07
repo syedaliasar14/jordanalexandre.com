@@ -28,4 +28,8 @@ button {
   @apply cursor-pointer;
 }
 
+.lores-shadow {
+  @apply shadow-[10px_10px_0_0_var(--foreground)];
+}
+
 @custom-variant hover (&:hover);

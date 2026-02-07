@@ -4,8 +4,9 @@ import Footer from "../../../components/footer";
 import { PortfolioWithItem } from "@/sanity/lib/types";
 import { sanityFetch } from "@/sanity/lib/live";
 import { PORTFOLIO_ITEM_QUERY } from "@/sanity/lib/queries";
-import { urlFor } from "@/sanity/lib/image";
 import { notFound } from "next/navigation";
+import ImagesGrid from "@/app/components/gallery/images-grid";
+import WindowContainer from "@/app/components/window-container";
 
 export default async function PortfolioItemPage({ params }: { params: Promise<{ category: string; slug: string }> }) {
   const { category, slug } = await params;
@@ -22,48 +23,28 @@ export default async function PortfolioItemPage({ params }: { params: Promise<{ 
     <main className="flex flex-col min-h-screen w-full items-center">
       <Header />
       <div className="flex-grow flex flex-col justify-center items-center w-full px-4">
-        <div className="border-2 font-lores max-w-2xl w-full">
-          <div className="bg-foreground text-white p-2">
-            <div className="text-sm mb-1">
-              <Link href="/portfolio" className="hover:underline">_portfolio</Link>
+
+        <WindowContainer className="max-w-7xl w-full"
+          title={portfolioItem.title}
+          breadcrumb={(
+            <>
+              <Link href="/portfolio" className="hover:text-primary">_portfolio</Link>
               {" / "}
-              <Link href={`/portfolio/${category}`} className="hover:underline">
-                {portfolioData.category}
+              <Link href={`/portfolio/${category}`} className="hover:text-primary">
+                _{portfolioData.category}
               </Link>
-            </div>
-            <h1 className="text-2xl md:text-3xl">_{portfolioItem.title}</h1>
-          </div>
-
-          <div className="p-4">
+            </>
+          )}
+        >
+          <div className="bg-white p-4 md:px-8 pb-12">
             {portfolioItem.description && (
-              <p className="mb-4 text-lg">{portfolioItem.description}</p>
+              <p className="mb-10 text-lg">{portfolioItem.description}</p>
             )}
 
-            {portfolioItem.gallery && portfolioItem.gallery.length > 0 && (
-              <div className="space-y-4">
-                {portfolioItem.gallery.map((image, index) => (
-                  <div key={index} className="border">
-                    <img
-                      src={urlFor(image).url()}
-                      alt={`${portfolioItem.title} - Image ${index + 1}`}
-                      className="w-full h-auto"
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {portfolioItem.thumbnail && !portfolioItem.gallery && (
-              <div className="border">
-                <img
-                  src={urlFor(portfolioItem.thumbnail).url()}
-                  alt={portfolioItem.title}
-                  className="w-full h-auto"
-                />
-              </div>
-            )}
+            <ImagesGrid portfolio={portfolioItem} />
           </div>
-        </div>
+        </WindowContainer>
+
       </div>
       <Footer />
     </main>

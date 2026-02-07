@@ -34,7 +34,7 @@ export default function Header() {
 
       {/* Mobile Menu Overlay */}
       <div className={`fixed top-0 left-0 w-full h-full bg-primary flex flex-col items-center justify-center text-2xl z-50 ${isMenuOpen ? "" : "hidden"}`}>
-        <button className="absolute top-4 right-4 text-3xl" onClick={() => setIsMenuOpen(false)}>×</button>
+        <button className="absolute top-4 right-4 text-4xl" onClick={() => setIsMenuOpen(false)}>×</button>
         <Link href="/" className="px-2 underline mb-8" onClick={() => setIsMenuOpen(false)}>JordanAlexandre.com</Link>
         {links.map((link) => (
           <Link key={link.href} href={link.href} className="hover:bg-foreground hover:text-white px-2 mb-4" onClick={() => setIsMenuOpen(false)}>
