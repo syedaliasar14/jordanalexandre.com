@@ -23,6 +23,9 @@ export default async function PortfolioCategoryPage({ params }: { params: Promis
       breadcrumb={[{ title: "_portfolio", href: "/portfolio" }]}
     >
       <nav className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 text-lg p-8">
+        {(!portfolioData.portfolioItems || portfolioData.portfolioItems.length === 0) && (
+          <div className="col-span-full text-center">coming soon...</div>
+        )}
         {portfolioData.portfolioItems?.map(item => (
           <Link
             key={item.slug.current}
