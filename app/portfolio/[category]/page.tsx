@@ -1,11 +1,11 @@
 import Link from "next/link";
-import Header from "../../components/header";
-import Footer from "../../components/footer";
 import { Portfolio } from "@/sanity/lib/types";
 import { sanityFetch } from "@/sanity/lib/live";
 import { PORTFOLIO_CATEGORY_QUERY } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import WindowContainer from "@/app/components/window-container";
+import Image from "next/image";
+import { urlFor } from "@/sanity/lib/image";
 
 export default async function PortfolioCategoryPage({ params }: { params: Promise<{ category: string }> }) {
   const { category } = await params;
@@ -17,31 +17,30 @@ export default async function PortfolioCategoryPage({ params }: { params: Promis
   }
 
   return (
-    <main className="flex flex-col min-h-screen w-full items-center justify-center">
-      <Header />
-      <div className="flex-grow flex flex-col justify-center items-center w-full p-4">
-        <WindowContainer className="border-2 my-10 font-lores max-w-sm w-full"
-          title={portfolioData.category}
-          breadcrumb={(
-            <>
-              <Link href="/portfolio" className="text-sm hover:underline">_portfolio</Link>
-            </>
-          )}
-        >
-          <nav className="flex flex-col text-xl">
-            {portfolioData.portfolioItems?.map(item => (
-              <Link
-                key={item.slug.current}
-                href={`/portfolio/${category}/${item.slug.current}`}
-                className="hover:bg-foreground hover:text-white p-2"
-              >
-                _{item.title}
-              </Link>
-            ))}
-          </nav>
-        </WindowContainer>
-      </div>
-      <Footer />
-    </main>
+    <WindowContainer className="border-2 my-10 font-lores max-w-6xl w-full"
+      title={portfolioData.category}
+      backLink="/portfolio"
+      breadcrumb={[{ title: "_portfolio", href: "/portfolio" }]}
+    >
+      <nav className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 text-lg p-8">
+        {portfolioData.portfolioItems?.map(item => (
+          <Link
+            key={item.slug.current}
+            href={`/portfolio/${category}/${item.slug.current}`}
+            className="relative border-2 lores-shadow hover:shadow-primary aspect-square text-lg p-4 flex items-center justify-center text-center"
+          >
+            {item.thumbnail && <Image
+              className="absolute inset-0 object-cover w-full h-full"
+              src={urlFor(item.thumbnail).width(400).height(400).url()}
+              alt={item.title}
+              width={400} height={400}
+            />}
+            <div className="absolute inset-0 bg-foreground opacity-0 hover:opacity-100 flex items-center justify-center text-white">
+              _{item.title}
+            </div>
+          </Link>
+        ))}
+      </nav>
+    </WindowContainer>
   );
 }

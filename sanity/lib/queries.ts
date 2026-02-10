@@ -52,3 +52,14 @@ export const PORTFOLIO_ITEM_QUERY = groq`*[_type == "portfolio" && slug.current 
     gallery[]{ asset-> }
   }
 }`
+
+// Get all portfolio links
+export const PORTFOLIO_LINKS_QUERY = groq`*[_type == "portfolio" && defined(slug.current)] { 
+  _id,
+  category,
+  slug,
+  "portfolioItems": portfolioItems[]{
+    title,
+    slug
+  }
+}`
