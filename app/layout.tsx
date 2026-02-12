@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { helveticaNeue, loRes9Wide, loRes21Serif } from "./fonts";
 import { draftMode } from "next/headers";
-import { DisableDraftMode } from "./components/disable-draft-mode";
+import { DisableDraftMode } from "../components/disable-draft-mode";
 import { VisualEditing } from "next-sanity/visual-editing";
 
 export const metadata: Metadata = {

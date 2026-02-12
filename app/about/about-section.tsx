@@ -1,6 +1,6 @@
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
-import WindowContainer from "../components/window-container";
+import WindowContainer from "../../components/window-container";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 export default function AboutSection({ title, text, image, reverse }: { title?: string; text?: string; image?: SanityImageSource, reverse?: boolean }) {

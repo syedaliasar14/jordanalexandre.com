@@ -2,8 +2,8 @@ import { PortfolioWithItem } from "@/sanity/lib/types";
 import { sanityFetch } from "@/sanity/lib/live";
 import { PORTFOLIO_ITEM_QUERY } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
-import ImagesGrid from "@/app/components/gallery/images-grid";
-import WindowContainer from "@/app/components/window-container";
+import ImagesGrid from "@/components/gallery/images-grid";
+import WindowContainer from "@/components/window-container";
 
 export default async function PortfolioItemPage({ params }: { params: Promise<{ category: string; slug: string }> }) {
   const { category, slug } = await params;

@@ -1,5 +1,6 @@
-import Header from "../components/header";
-import Footer from "../components/footer";
+import Header from "../../components/header";
+import Footer from "../../components/footer";
+import { Input } from "@/components/ui/input";
 
 export default function ContactPage() {
   return (
@@ -13,7 +14,7 @@ export default function ContactPage() {
             className="w-full px-3 py-2 border-b-2 border-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
           />
 
-          <input type="email" id="email" name="email" required placeholder="Email"
+          <Input type="email" id="email" name="email" required placeholder="Email"
             className="w-full px-3 py-2 border-b-2 border-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
           />
 

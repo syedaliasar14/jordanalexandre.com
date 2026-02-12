@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Portfolio } from "@/sanity/lib/types";
 import { sanityFetch } from "@/sanity/lib/live";
 import { PORTFOLIO_CATEGORIES_QUERY } from "@/sanity/lib/queries";
-import WindowContainer from "../components/window-container";
+import WindowContainer from "../../components/window-container";
 
 export default async function PortfolioPage() {
   const portfolioCategories = (await sanityFetch({ query: PORTFOLIO_CATEGORIES_QUERY, params: {} }))?.data as Portfolio[];

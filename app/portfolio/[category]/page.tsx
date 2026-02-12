@@ -3,7 +3,7 @@ import { Portfolio } from "@/sanity/lib/types";
 import { sanityFetch } from "@/sanity/lib/live";
 import { PORTFOLIO_CATEGORY_QUERY } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
-import WindowContainer from "@/app/components/window-container";
+import WindowContainer from "@/components/window-container";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 
