@@ -1,31 +1,87 @@
+"use client";
+
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import { Input } from "@/components/ui/input";
+import WindowContainer from "@/components/window-container";
+import { Textarea } from "@/components/ui/textarea";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Controller, useForm } from "react-hook-form"
+import * as z from "zod"
+import axios from "axios";
+import { useState } from "react";
+import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
+
+const schema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.email("Invalid email address"),
+  message: z.string().min(1, "Message is required"),
+})
 
 export default function ContactPage() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const form = useForm<z.infer<typeof schema>>({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      name: "",
+      email: "",
+      message: "",
+    },
+  });
+
+  async function onSubmit(data: z.infer<typeof schema>) {
+    setIsSubmitting(true);
+    try {
+      await axios.post("/api/contact", data);
+    } catch (error) {
+      console.error("Error submitting contact form:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
   return (
     <main className="flex flex-col min-h-screen w-full items-center">
       <Header />
-      <div className="flex-1 flex items-center justify-center p-4">
-        <form className="w-full max-w-5xl space-y-4">
-          <h1 className="text-5xl text-primary font-thin mb-12">Contact</h1>
+      <div className="w-full px-4 flex-1 flex items-center justify-center">
+        <WindowContainer title="contact" className="max-w-xl p-4 bg-foreground">
+          <form className="w-full mt-4 text-white" onSubmit={form.handleSubmit(onSubmit)}>
+            <FieldGroup>
 
-          <input type="text" id="name" name="name" required placeholder="Name"
-            className="w-full px-3 py-2 border-b-2 border-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
-          />
+              <Controller name="name" control={form.control} render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor={field.name} className="text-lg">name</FieldLabel>
+                  <Input {...field} id={field.name} aria-invalid={fieldState.invalid} autoComplete="off" />
+                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                </Field>
+              )}
+              />
 
-          <Input type="email" id="email" name="email" required placeholder="Email"
-            className="w-full px-3 py-2 border-b-2 border-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
-          />
+              <Controller name="email" control={form.control} render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor={field.name} className="text-lg">email</FieldLabel>
+                  <Input {...field} type="email" id={field.name} aria-invalid={fieldState.invalid} autoComplete="off" />
+                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                </Field>
+              )}
+              />
 
-          <textarea id="message" name="message" rows={4} required placeholder="Message"
-            className="w-full px-3 py-2 border-b-2 border-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 resize-vertical"
-          />
+              <Controller name="message" control={form.control} render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor={field.name} className="text-lg">message</FieldLabel>
+                  <Textarea {...field} id={field.name} aria-invalid={fieldState.invalid} rows={4} required />
+                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                </Field>
+              )}
+              />
 
-          <button type="submit" className="bg-foreground hover:bg-primary text-white py-2 px-12 font-lores text-xl ml-auto block">
-            send
-          </button>
-        </form>
+            </FieldGroup>
+
+            <button type="submit" className="mt-8 bg-primary text-foreground hover:bg-secondary py-1 px-4 w-full text-xl" disabled={isSubmitting}>
+              {isSubmitting ? "sending..." : "send"}
+            </button>
+          </form>
+        </WindowContainer>
       </div>
       <Footer />
     </main>
